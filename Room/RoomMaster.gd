@@ -24,38 +24,55 @@ func onMouseClick(position, collider):
 	else:
 		tryMoveCharacterTo(position)
 		
-func highlightPathTo(position):
-	if !playerControl:
-		return
-	location_indicator.show()
-	var points:PackedVector3Array = ally.nav.setTarget(position)
+func createMovementDataTo(position) -> MovementData:
+	var mov:MovementData = MovementData.new()
+	var points: PackedVector3Array = ally.nav.setTarget(position)
 	var distanceCount = 0
-	var energyUsed = 0
 	var i = 1
 	while i < points.size():
-		if energyUsed >= ally.data.actionPointCurrent:
+		if mov.energyUsedPoints.size() >= ally.data.actionPointCurrent:
 			break
 		if distanceCount + points[i-1].distance_to(points[i]) > ally.data.movementSpeed:
 			var vectorToPoint = (points[i] - points[i-1]).normalized()*(ally.data.movementSpeed - distanceCount)
 			var newPoint = points[i-1] + vectorToPoint
-			draw3D.point(newPoint + Vector3(0, 1, 0))
 			points.insert(i, newPoint)
+			mov.energyUsedPoints.push_back(newPoint)
 			distanceCount = 0
-			energyUsed += 1
+		elif points.size() - 1 == i:
+			if mov.energyUsedPoints.size() == 0 || points[i].distance_to(mov.energyUsedPoints[mov.energyUsedPoints.size()-1]) > 2:
+				mov.energyUsedPoints.push_back(points[i])
+				mov.subMovements.push_back(points[i])
+			break
 		else:
 			distanceCount += points[i-1].distance_to(points[i])
-		draw3D.line(points[i-1], points[i])
+		mov.subMovements.push_back(points[i])
 		i += 1
-	location_indicator.position = position
+	print(mov.energyUsedPoints.size())
+	return mov
+	
+func highlightPathTo(position):
+	if !playerControl:
+		return
+	var movementData:MovementData = createMovementDataTo(position)
+	if(movementData.subMovements.size() == 0):
+		return
+	for i in range(1, movementData.subMovements.size()):
+		draw3D.line(movementData.subMovements[i-1], movementData.subMovements[i])
+	for point in movementData.energyUsedPoints:
+		draw3D.point(point + Vector3(0, 1, 0), 0.5)
+	location_indicator.show()
+	location_indicator.position = movementData.subMovements[movementData.subMovements.size()-1]
 	
 func tryMoveCharacterTo(position):
 	if !playerControl:
 		return
 	playerControl = false
 	location_indicator.hide()
-	ally.nav.set_target_position(position)
-	while !ally.nav.is_navigation_finished():
-		await move_to_position(ally, ally.nav.get_next_path_position(), 5)
+	var movementData:MovementData = createMovementDataTo(position)
+	while movementData.subMovements.size() > 0:
+		await move_to_position(ally, movementData.subMovements[0], 10)
+		movementData.subMovements.remove_at(0)
+	ally.data.actionPointCurrent -= movementData.energyUsedPoints.size()
 	playerControl = true
 	
 			

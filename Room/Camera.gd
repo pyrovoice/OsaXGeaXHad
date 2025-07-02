@@ -19,6 +19,7 @@ var camera_angle_min = 0.10
 var camera_angle_max = 0.20
 @onready var spring_arm := $SpringArm3D
 @onready var camera_3d = $SpringArm3D/Camera3D
+@onready var room = $".."
 
 func _ready():
 	target_zoom = spring_arm.spring_length
@@ -27,6 +28,8 @@ func _ready():
 	target_rotation = current_rotation
 
 func _process(delta):
+	if room.playerControl == false:
+		return
 	handle_movement(delta)
 	handle_zoom()
 
@@ -62,6 +65,8 @@ func handle_zoom():
 
 var middleMouseOn = false
 func _unhandled_input(event):
+	if room.playerControl == false:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_MIDDLE and event.pressed:
 			middleMouseOn = true
