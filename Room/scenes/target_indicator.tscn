@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://kt3ekesyf227"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j6me"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_s4h3b"]
+material = SubResource("StandardMaterial3D_5j6me")
+outer_radius = 0.645
+
+[node name="targetIndicator" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266936, -7.92376)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_s4h3b")

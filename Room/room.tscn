@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://c832oa72fqph0"]
+[gd_scene load_steps=17 format=3 uid="uid://c832oa72fqph0"]
 
-[ext_resource type="Script" path="res://Room/RoomMaster.gd" id="1_4dbpo"]
+[ext_resource type="Script" path="res://Room/scripts/RoomMaster.gd" id="1_4dbpo"]
 [ext_resource type="PackedScene" uid="uid://clf7tjq6t1txy" path="res://Character/character.tscn" id="1_dc88r"]
 [ext_resource type="Script" path="res://Character/Character_data.gd" id="2_srceq"]
-[ext_resource type="Script" path="res://Room/Camera.gd" id="3_18bnm"]
-[ext_resource type="Script" path="res://Room/player_control.gd" id="4_qh48l"]
+[ext_resource type="Script" path="res://Room/scripts/Camera.gd" id="3_18bnm"]
+[ext_resource type="Script" path="res://Room/scripts/player_control.gd" id="4_qh48l"]
 [ext_resource type="PackedScene" uid="uid://cio6q28oui142" path="res://assets/targetPosition.tscn" id="5_bu0hj"]
-[ext_resource type="Script" path="res://Room/character_info_UI.gd" id="7_mcn2y"]
+[ext_resource type="Script" path="res://Room/scripts/character_info_UI.gd" id="7_mcn2y"]
+[ext_resource type="PackedScene" uid="uid://kt3ekesyf227" path="res://Room/scenes/target_indicator.tscn" id="8_fpsxd"]
 
 [sub_resource type="Resource" id="Resource_f6l72"]
 script = ExtResource("2_srceq")
@@ -63,28 +64,28 @@ transform = Transform3D(1, 0, 0, 0, 0.0968534, 0.995299, 0, -0.995299, 0.0968534
 [node name="PlayerControl" type="Node3D" parent="."]
 script = ExtResource("4_qh48l")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="floor" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.381184, 0)
 navigation_mesh = SubResource("NavigationMesh_ykjs7")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="floor"]
 use_collision = true
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_tfcfj")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="floor/CSGBox3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/CSGBox3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_xka5w")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.381184, -4.44281)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.515294, 0)
 shape = SubResource("BoxShape3D_1a8p0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_c2cig")
 
@@ -157,3 +158,5 @@ offset_bottom = -36.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "End the turn"
+
+[node name="targetIndicator" parent="." instance=ExtResource("8_fpsxd")]
