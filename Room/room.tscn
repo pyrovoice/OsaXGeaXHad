@@ -46,11 +46,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.244, 4.945)
 script = ExtResource("3_18bnm")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 0, 0)
 spring_length = 10.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 0.62818, 0.778068, 0, -0.778068, 0.62818, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, -1.02946, -5.40552, 4.53577)
 current = true
+fov = 40.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0968534, 0.995299, 0, -0.995299, 0.0968534, 0, 51.4467, 0)

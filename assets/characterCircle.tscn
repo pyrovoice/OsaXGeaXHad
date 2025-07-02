@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfor44x0opb22"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwgyi"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_nb2sq"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_qwgyi")
+inner_radius = 0.672
+outer_radius = 0.755
+rings = 24
+ring_segments = 8
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_nb2sq")

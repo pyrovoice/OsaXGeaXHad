@@ -60,7 +60,6 @@ func square(pos: Vector3, size: Vector2, color = Color.WHITE_SMOKE, persist_ms =
 	return eraseAndDraw(mesh_instance)
 	
 func erase():
-	print('erase')
 	for elem in previouslyDrawnElements:
 		elem.queue_free()
 	previouslyDrawnElements = []

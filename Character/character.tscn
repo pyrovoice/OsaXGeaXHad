@@ -1,11 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://clf7tjq6t1txy"]
+[gd_scene load_steps=6 format=3 uid="uid://clf7tjq6t1txy"]
 
 [ext_resource type="Script" path="res://Character/character.gd" id="1_5nas6"]
 [ext_resource type="Script" path="res://helpers/Nav3DCustom.gd" id="2_vs5sr"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_r4hgo"]
-radius = 0.25
-height = 1.0
+[ext_resource type="Texture2D" uid="uid://dri7gvtx6xs7l" path="res://icon.svg" id="3_2nymw"]
+[ext_resource type="PackedScene" uid="uid://bfor44x0opb22" path="res://assets/characterCircle.tscn" id="4_cf7dn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_iojra"]
 height = 1.0
@@ -13,10 +11,6 @@ radius = 0.25
 
 [node name="Character" type="StaticBody3D"]
 script = ExtResource("1_5nas6")
-
-[node name="Appearance" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CapsuleMesh_r4hgo")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -26,3 +20,9 @@ shape = SubResource("CylinderShape3D_iojra")
 path_desired_distance = 0.5
 target_desired_distance = 0.1
 script = ExtResource("2_vs5sr")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615569, 0)
+texture = ExtResource("3_2nymw")
+
+[node name="Node3D" parent="." instance=ExtResource("4_cf7dn")]

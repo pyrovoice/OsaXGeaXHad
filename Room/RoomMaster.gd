@@ -29,9 +29,23 @@ func highlightPathTo(position):
 		return
 	location_indicator.show()
 	var points:PackedVector3Array = ally.nav.setTarget(position)
-	for i in range(1, points.size()):
+	var distanceCount = 0
+	var energyUsed = 0
+	var i = 1
+	while i < points.size():
+		if energyUsed >= ally.data.actionPointCurrent:
+			break
+		if distanceCount + points[i-1].distance_to(points[i]) > ally.data.movementSpeed:
+			var vectorToPoint = (points[i] - points[i-1]).normalized()*(ally.data.movementSpeed - distanceCount)
+			var newPoint = points[i-1] + vectorToPoint
+			draw3D.point(newPoint + Vector3(0, 1, 0))
+			points.insert(i, newPoint)
+			distanceCount = 0
+			energyUsed += 1
+		else:
+			distanceCount += points[i-1].distance_to(points[i])
 		draw3D.line(points[i-1], points[i])
-		draw3D.point(points[i] + Vector3(0, 1, 0))
+		i += 1
 	location_indicator.position = position
 	
 func tryMoveCharacterTo(position):
