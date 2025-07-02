@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c832oa72fqph0"]
+[gd_scene load_steps=16 format=3 uid="uid://c832oa72fqph0"]
 
 [ext_resource type="Script" path="res://Room/RoomMaster.gd" id="1_4dbpo"]
 [ext_resource type="PackedScene" uid="uid://clf7tjq6t1txy" path="res://Character/character.tscn" id="1_dc88r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Room/Camera.gd" id="3_18bnm"]
 [ext_resource type="Script" path="res://Room/player_control.gd" id="4_qh48l"]
 [ext_resource type="PackedScene" uid="uid://cio6q28oui142" path="res://assets/targetPosition.tscn" id="5_bu0hj"]
+[ext_resource type="Script" path="res://Room/character_info_UI.gd" id="7_mcn2y"]
 
 [sub_resource type="Resource" id="Resource_f6l72"]
 script = ExtResource("2_srceq")
@@ -30,6 +31,8 @@ size = Vector3(5, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_c2cig"]
 size = Vector3(5, 1, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_44jow"]
 
 [node name="Room" type="Node3D"]
 script = ExtResource("1_4dbpo")
@@ -87,3 +90,70 @@ mesh = SubResource("BoxMesh_c2cig")
 
 [node name="locationIndicator" parent="." instance=ExtResource("5_bu0hj")]
 visible = false
+
+[node name="UI" type="Control" parent="."]
+light_mask = 0
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="characterInfo" type="Control" parent="UI"]
+layout_mode = 1
+anchor_top = 0.846
+anchor_right = 0.087
+anchor_bottom = 1.0
+offset_top = -0.208008
+offset_right = -0.224007
+grow_vertical = 0
+script = ExtResource("7_mcn2y")
+
+[node name="background" type="TextureRect" parent="UI/characterInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_44jow")
+
+[node name="energyText" type="Label" parent="UI/characterInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Energy: 3/3"
+visible_characters_behavior = 1
+
+[node name="endTurn" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="endTurnButton" type="Button" parent="UI/endTurn"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -102.0
+offset_right = -53.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "End the turn"

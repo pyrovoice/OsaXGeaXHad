@@ -4,6 +4,7 @@ class_name RoomMaster
 @onready var ally: Character = $Ally
 @onready var player_control: PlayerControl = $PlayerControl
 @onready var location_indicator = $locationIndicator
+@onready var end_turn_button:Button = $UI/endTurn/endTurnButton
 
 var playerControl = true
 var characterMovementTween: Tween
@@ -11,6 +12,8 @@ var characterMovementTween: Tween
 func _ready():
 	player_control.on_mouse_move.connect(onMouseMove)
 	player_control.on_mouse_click.connect(onMouseClick)
+	end_turn_button.pressed.connect(endTurn)
+
 
 func onMouseMove(position, collider):
 	if collider is Character:
@@ -47,7 +50,6 @@ func createMovementDataTo(position) -> MovementData:
 			distanceCount += points[i-1].distance_to(points[i])
 		mov.subMovements.push_back(points[i])
 		i += 1
-	print(mov.energyUsedPoints.size())
 	return mov
 	
 func highlightPathTo(position):
@@ -68,10 +70,13 @@ func tryMoveCharacterTo(position):
 		return
 	playerControl = false
 	location_indicator.hide()
+	draw3D.erase()
 	var movementData:MovementData = createMovementDataTo(position)
 	while movementData.subMovements.size() > 0:
 		await move_to_position(ally, movementData.subMovements[0], 10)
-		movementData.subMovements.remove_at(0)
+		var dist = 0.5 if movementData.subMovements.size()>1 else 0.1
+		if ally.position.distance_to(movementData.subMovements[0]) <= dist:
+			movementData.subMovements.remove_at(0)
 	ally.data.actionPointCurrent -= movementData.energyUsedPoints.size()
 	playerControl = true
 	
@@ -80,4 +85,6 @@ func move_to_position(node: Node3D, target: Vector3, speed: float) -> void:
 	var direction = (target - node.global_transform.origin).normalized()
 	node.global_translate(direction * speed * get_process_delta_time())
 	await get_tree().process_frame
-	
+
+func endTurn():
+	ally.data.actionPointCurrent = ally.data.actionPointMax

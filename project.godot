@@ -23,6 +23,10 @@ draw3D="*res://helpers/3DDraw.gd"
 
 settings/addon_root_folder="res://addons/debug_draw_3d"
 
+[display]
+
+window/per_pixel_transparency/allowed=true
+
 [input]
 
 move_forward={
