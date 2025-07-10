@@ -24,6 +24,7 @@ func onMouseMove(position, collider):
 		draw3D.line(getTargetPosition(ally) + Vector3(0, 1, 0), getTargetPosition(collider) + Vector3(0, 1, 0))
 	elif collider is Cover:
 		showCover(collider)
+		draw3D.point(getTargetPosition(collider), 0.1)
 		highlightPathTo(getTargetPosition(collider))
 	else:
 		highlightPathTo(position)
@@ -46,7 +47,9 @@ func getTargetPosition(entity):
 	if entity is Character:
 		return entity.global_position
 	elif entity is Cover:
-		return entity.global_position
+		var pos = entity.global_position
+		pos.y = 0.1
+		return pos
 		
 func resetDisplays():
 	draw3D.erase()

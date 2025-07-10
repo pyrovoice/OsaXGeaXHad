@@ -13,11 +13,10 @@ collision_mask = 0
 script = ExtResource("1_oax2l")
 
 [node name="CoverCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4499)
 shape = SubResource("BoxShape3D_iwd04")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0979294)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.363926)
 double_sided = false
 texture = ExtResource("2_k7c3l")
 script = ExtResource("2_vfihq")
