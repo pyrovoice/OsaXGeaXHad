@@ -23,10 +23,9 @@ target_desired_distance = 0.1
 script = ExtResource("2_vs5sr")
 
 [node name="Node3DFacingCamera" type="Node3D" parent="."]
-script = ExtResource("3_xju26")
 
 [node name="Sprite3D" type="Sprite3D" parent="Node3DFacingCamera"]
 texture = ExtResource("3_2nymw")
 script = ExtResource("3_xju26")
 
-[node name="Node3D" parent="." instance=ExtResource("4_cf7dn")]
+[node name="characterCircle" parent="." instance=ExtResource("4_cf7dn")]

@@ -13,3 +13,4 @@ func _ready():
 	scale.x = fixed_width / tex_size.x *100
 	scale.y = fixed_height / tex_size.y *100
 	scale.z = 1.0  # Keep depth unchanged (can adjust if needed)
+	

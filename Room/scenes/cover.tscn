@@ -1,13 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2f108u7e82cb"]
+[gd_scene load_steps=5 format=3 uid="uid://d2f108u7e82cb"]
 
 [ext_resource type="Script" path="res://Room/scenes/cover.gd" id="1_oax2l"]
-[ext_resource type="Texture2D" uid="uid://by6udcuxitl04" path="res://assets/other2D/shieldBig.png" id="1_sva0d"]
+[ext_resource type="Texture2D" uid="uid://wchkqqtxukeu" path="res://assets/other2D/shield.png" id="2_k7c3l"]
 [ext_resource type="Script" path="res://helpers/Sprite3DSized.gd" id="2_vfihq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iwd04"]
-size = Vector3(0.8, 0.8, 0.8)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ck7pr"]
 size = Vector3(0.8, 0.8, 0.8)
 
 [node name="Cover" type="StaticBody3D"]
@@ -19,12 +16,8 @@ script = ExtResource("1_oax2l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4499)
 shape = SubResource("BoxShape3D_iwd04")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4499)
-mesh = SubResource("BoxMesh_ck7pr")
-skeleton = NodePath("../CoverCollider")
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0979294)
 double_sided = false
-texture = ExtResource("1_sva0d")
+texture = ExtResource("2_k7c3l")
 script = ExtResource("2_vfihq")

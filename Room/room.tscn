@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c832oa72fqph0"]
+[gd_scene load_steps=18 format=3 uid="uid://c832oa72fqph0"]
 
 [ext_resource type="Script" path="res://Room/scripts/RoomMaster.gd" id="1_4dbpo"]
 [ext_resource type="PackedScene" uid="uid://clf7tjq6t1txy" path="res://Character/character.tscn" id="1_dc88r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Room/scripts/Camera.gd" id="3_18bnm"]
 [ext_resource type="Script" path="res://Room/scripts/player_control.gd" id="4_qh48l"]
 [ext_resource type="PackedScene" uid="uid://cio6q28oui142" path="res://assets/targetPosition.tscn" id="5_bu0hj"]
+[ext_resource type="PackedScene" uid="uid://d010hhw7nny0c" path="res://Room/scenes/obstacle.tscn" id="6_irjcc"]
 [ext_resource type="Script" path="res://Room/scripts/character_info_UI.gd" id="7_mcn2y"]
 [ext_resource type="PackedScene" uid="uid://kt3ekesyf227" path="res://Room/scenes/target_indicator.tscn" id="8_fpsxd"]
 
@@ -18,8 +19,9 @@ script = ExtResource("2_srceq")
 team = 1
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ykjs7"]
-vertices = PackedVector3Array(-2.75, 0.5, -5.5, -0.75, 0.5, -5.5, -0.75, 0.5, -49.5, -3, 0.5, -4.25, -49.5, 0.5, -49.5, -49.5, 0.5, -4.25, 1, 0.5, -5.5, 1, 0.5, -49.5, 3, 0.5, -5.5, 3.25, 0.5, -4.25, 49.5, 0.5, -4.25, 49.5, 0.5, -49.5, -2.75, 0.5, -3.25, -49.5, 0.5, 49.5, -1.5, 0.5, 49.5, -1.25, 0.5, -3.25, 3, 0.5, -3.25, 1.75, 0.5, 49.5, 49.5, 0.5, 49.5, 1.5, 0.5, -3.25)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(2, 7, 1), PackedInt32Array(1, 7, 6), PackedInt32Array(8, 6, 7), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(3, 12, 5), PackedInt32Array(5, 12, 13), PackedInt32Array(13, 12, 14), PackedInt32Array(12, 15, 14), PackedInt32Array(9, 10, 16), PackedInt32Array(16, 10, 18), PackedInt32Array(16, 18, 17), PackedInt32Array(17, 19, 16), PackedInt32Array(15, 19, 14), PackedInt32Array(14, 19, 17)]
+vertices = PackedVector3Array(-2.75, 0.52, -5.5, -0.75, 0.52, -5.5, -0.75, 0.52, -49.5, -3, 0.52, -4.25, -49.5, 0.52, -49.5, -49.5, 0.52, -4.25, 1, 0.52, -5.5, 1, 0.52, -49.5, 2.75, 0.52, -3.25, 4, 0.52, -1.5, 4.25, 0.52, -2, 3.25, 0.52, -3.5, 3.25, 0.52, -5.25, 6, 0.52, -2, 49.5, 0.52, -1, 49.5, 0.52, -49.5, 6.25, 0.52, -1, 4, 0.52, 0, -2.75, 0.52, -3.25, 5, 0.52, 49.5, -49.5, 0.52, 49.5, 5, 0.52, 0.25, 5.75, 0.52, 0.25, 49.5, 0.52, 49.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(2, 7, 1), PackedInt32Array(1, 7, 6), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(12, 6, 7), PackedInt32Array(10, 11, 13), PackedInt32Array(13, 11, 12), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 7), PackedInt32Array(14, 16, 13), PackedInt32Array(9, 17, 8), PackedInt32Array(8, 17, 18), PackedInt32Array(18, 17, 5), PackedInt32Array(5, 17, 19), PackedInt32Array(5, 19, 20), PackedInt32Array(5, 3, 18), PackedInt32Array(17, 21, 19), PackedInt32Array(16, 14, 22), PackedInt32Array(22, 14, 23), PackedInt32Array(22, 23, 19), PackedInt32Array(19, 21, 22)]
+cell_height = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tfcfj"]
 albedo_color = Color(0.124339, 0.292036, 0, 1)
@@ -88,6 +90,9 @@ shape = SubResource("BoxShape3D_1a8p0")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_c2cig")
+
+[node name="Obstacle" parent="floor" instance=ExtResource("6_irjcc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -1)
 
 [node name="locationIndicator" parent="." instance=ExtResource("5_bu0hj")]
 visible = false

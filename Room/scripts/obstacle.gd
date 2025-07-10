@@ -11,7 +11,12 @@ func _ready():
 func createCovers():
 	var size = mesh_instance_3d.mesh.get_aabb().size
 	for i in range(0, size.x):
-		var inst = COVER.instantiate()
-		add_child(inst)
-		inst.position = Vector3(i, 0, size.y/2 +0.01)
-		inst._hide()
+		addCover(Vector3(i, 0, size.y/2 +0.01))
+		#addCover(Vector3(i, 0, -size.y/2 -0.01))
+		
+func addCover(pos: Vector3, orientation: Vector2 = Vector2(0, 0)):
+	var inst = COVER.instantiate()
+	add_child(inst)
+	inst.position = pos
+	inst.rotation = Vector3(orientation.x, 0, orientation.y)
+	inst._hide()
